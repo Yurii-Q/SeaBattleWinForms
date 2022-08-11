@@ -6,12 +6,11 @@ namespace SeaBattleWinForms
     {
         public Form1()
         {
-            InitializeComponent();
-
-            player = new Player();
-            pc = new Player();
-
+            InitializeComponent(); 
             InitCoordinates();
+
+            player = new Player(false);
+            pc = new Player();
             InitPCField();
             InitPlayerField();
         }  
@@ -48,32 +47,64 @@ namespace SeaBattleWinForms
 
             if(e.KeyCode == Keys.R)
             {
-                this.player.Init();
-                ResetPlayerField();
+                player.zeroingField();                
+                pc.InitAuto();
+                ResetDisplayPCField();
+                ResetDisplayPlayerField();
+                for (int i = 0; i < rang; ++i)
+                    for (int j = 0; j < rang; ++j)
+                    {
+                        buttonsOnPCField[i, j].Click -= btn_ClickPCField;
+                        buttonsOnPlayerField[i, j].Click += btn_ClickPlayerField;
+                    }
+                this.btnAutoFill.Enabled = true;
             }
         }        
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            this.player.Init();
-            this.pc.Init();
-            ResetPCField();
-            ResetPlayerField();
-            
+            player.zeroingField();
+            pc.InitAuto();
+            ResetDisplayPCField();
+            ResetDisplayPlayerField();
+            for (int i = 0; i < rang; ++i)
+                for (int j = 0; j < rang; ++j)
+                {
+                    buttonsOnPCField[i, j].Click -= btn_ClickPCField;
+                    buttonsOnPlayerField[i, j].Click += btn_ClickPlayerField;
+                }
+            this.btnAutoFill.Enabled = true;
         }
 
-        private void btn_Click(object sender, EventArgs e)
+        private void btnAutoFill_Click(object sender, EventArgs e)
+        {
+            this.player.InitAuto();
+            
+
+            for (int i = 0; i < rang; ++i)
+                for (int j = 0; j < rang; ++j)
+                {
+                    buttonsOnPCField[i, j].Click += btn_ClickPCField;
+                    buttonsOnPlayerField[i, j].Click -= btn_ClickPlayerField;
+                }
+            ResetDisplayPCField();
+            ResetDisplayPlayerField();
+            this.btnAutoFill.Enabled = false;
+        }
+
+        private void btn_ClickPCField(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            
+                        
+            handler.iPlayer = this.tableLayoutPC.Controls.Container.GetColumn(btn) - 1;
             handler.jPlayer = this.tableLayoutPC.Controls.Container.GetRow(btn) - 1;
-            handler.iPlayer = this.tableLayoutPC.Controls.Container.GetColumn(btn) - 1;                
-                                    
 
             movesPC.readKeyPC(pc, handler);
 
             int flagWin = handler.handler(player, pc);
 
+            ResetDisplayPCField();
+            ResetDisplayMyField();
 
             if (flagWin != 0)
             {    
@@ -81,10 +112,32 @@ namespace SeaBattleWinForms
                    MessageBox.Show("You Win!");
                 else
                     MessageBox.Show("You Lose!");                
-            }
-
-            ResetPCField();
-            ResetMyField();
+            }            
         }
+
+        private void btn_ClickPlayerField(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+            int indexi = this.tableLayoutPC.Controls.Container.GetColumn(btn) - 1;
+            int indexj = this.tableLayoutPC.Controls.Container.GetRow(btn) - 1;
+
+            player.ManuallyFill(indexi, indexj);
+
+            ResetDisplayPlayerField();
+
+            if(player.numberShips == 0)
+            {
+                for (int i = 0; i < rang; ++i)
+                    for (int j = 0; j < rang; ++j)
+                    {
+                        buttonsOnPCField[i, j].Click += btn_ClickPCField;
+                        buttonsOnPlayerField[i, j].Click -= btn_ClickPlayerField;
+                    }
+                player.numberShips = 10;
+                this.btnAutoFill.Enabled = false;
+            }           
+
+        }        
     }   
 }

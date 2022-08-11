@@ -53,9 +53,7 @@ namespace SeaBattleWinForms
                     buttonsOnPCField[i, j].Margin = new Padding(0);
                     buttonsOnPCField[i, j].Padding = new Padding(0);
                     buttonsOnPCField[i, j].FlatAppearance.BorderSize = 0;
-                    buttonsOnPCField[i, j].FlatStyle = FlatStyle.Flat;
-                    //buttonsOnPCField[i, j].Enabled = false;
-                    buttonsOnPCField[i, j].Click += btn_Click;
+                    buttonsOnPCField[i, j].FlatStyle = FlatStyle.Flat;                    
                 }
 
             for (int i = 1; i <= rang; ++i)
@@ -77,8 +75,8 @@ namespace SeaBattleWinForms
                     buttonsOnPlayerField[i, j].Margin = new Padding(0);
                     buttonsOnPlayerField[i, j].Padding = new Padding(0);
                     buttonsOnPlayerField[i, j].FlatAppearance.BorderSize = 0;
-                    buttonsOnPlayerField[i, j].FlatStyle = FlatStyle.Flat;                                   
-                    //buttonsOnPlayerField[i, j].Enabled = false;
+                    buttonsOnPlayerField[i, j].FlatStyle = FlatStyle.Flat;
+                    buttonsOnPlayerField[i, j].Click += btn_ClickPlayerField;
 
                     if (this.player.getFieldElement(i, j) == 0)
                         buttonsOnPlayerField[i, j].Text = "";
@@ -96,7 +94,7 @@ namespace SeaBattleWinForms
 
         }
 
-        private void ResetPlayerField()
+        private void ResetDisplayPlayerField()
         {
             //sw.Restart();
             this.SuspendLayout();
@@ -115,7 +113,7 @@ namespace SeaBattleWinForms
             //this.Timer.Text = (sw.ElapsedMilliseconds / 1000.0).ToString() + "s";
         }
 
-        private void ResetPCField()
+        private void ResetDisplayPCField()
         {            
             for (int i = 0; i < rang; ++i)
                 for (int j = 0; j < rang; ++j)
@@ -129,7 +127,7 @@ namespace SeaBattleWinForms
                 }            
         }
 
-        private void ResetMyField()
+        private void ResetDisplayMyField()
         {
             for (int i = 0; i < rang; ++i)
                 for (int j = 0; j < rang; ++j)
@@ -139,16 +137,7 @@ namespace SeaBattleWinForms
                     if (this.pc.getMyMoveElement(i, j) == 2)
                         buttonsOnPlayerField[i, j].Text = "*";
                 }
-        }
-
-        //private void ClearPlayerLabels()
-        //{
-        //    for (int i = 0; i < rang; ++i)
-        //        for (int j = 0; j < rang; ++j)
-        //        { 
-        //            labelOnPlayerField[i, j].Text = "";
-        //        }
-        //}
+        }        
         #endregion
     }
 }

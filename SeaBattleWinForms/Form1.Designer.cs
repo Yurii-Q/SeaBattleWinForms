@@ -33,6 +33,7 @@
             this.labelPlayer = new System.Windows.Forms.Label();
             this.labelPC = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
+            this.btnAutoFill = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tableLayoutPlayer
@@ -131,6 +132,16 @@
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
+            // btnAutoFill
+            // 
+            this.btnAutoFill.Location = new System.Drawing.Point(272, 391);
+            this.btnAutoFill.Name = "btnAutoFill";
+            this.btnAutoFill.Size = new System.Drawing.Size(75, 23);
+            this.btnAutoFill.TabIndex = 6;
+            this.btnAutoFill.Text = "Auto fill";
+            this.btnAutoFill.UseVisualStyleBackColor = true;
+            this.btnAutoFill.Click += new System.EventHandler(this.btnAutoFill_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -138,6 +149,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(758, 482);
+            this.Controls.Add(this.btnAutoFill);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.labelPC);
             this.Controls.Add(this.labelPlayer);
@@ -161,5 +173,6 @@
         private Label labelPlayer;
         private Label labelPC;
         private Button btnReset;
+        private Button btnAutoFill;
     }
 }

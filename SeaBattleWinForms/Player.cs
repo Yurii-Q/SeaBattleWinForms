@@ -24,9 +24,12 @@ namespace SeaBattle
         //History of move
         //private List<string> history = new List<string>();
 
-        public Player()
+        public Player(bool autoInit = true)
         {
-            Init();            
+            if(autoInit)
+                InitAuto();
+            else
+                zeroingField();
         }       
 
         public int getSizeField() { return sizeField; }
@@ -46,14 +49,14 @@ namespace SeaBattle
             set { myMoves[i, j] = value; }
         }
 
-        public void Init()
+        public void InitAuto()
         {
             zeroingField();
             fillMyField();
             numberShips = 10;
-        }
+        }        
 
-        private void zeroingField()
+        public void zeroingField()
         {
             for (byte i = 0; i < sizeField; i++)
             {
@@ -64,6 +67,103 @@ namespace SeaBattle
                 }
             }
         }//end zeroingField
+
+        public void ManuallyFill(int i, int j)
+        {
+            if (numberShips != 0)
+            {
+                if (myField[i, j] == 0)
+                {
+                    if (i > 0 && i < sizeField - 1 && j > 0 && j < sizeField - 1)
+                    {
+                        if (myField[i + 1, j] == 0 && myField[i - 1, j] == 0 &&
+                            myField[i, j + 1] == 0 && myField[i, j - 1] == 0 && myField[i + 1, j + 1] == 0 &&
+                            myField[i - 1, j - 1] == 0 && myField[i + 1, j - 1] == 0 && myField[i - 1, j + 1] == 0)
+                        {
+                            myField[i, j] = 1;
+                            numberShips--;
+                            return;
+                        }
+                    }
+                    else if (i == 0 && j == 0)
+                    {
+                        if (myField[i + 1, j] == 0 && myField[i, j + 1] == 0 && myField[i + 1, j + 1] == 0)
+                        {
+                            myField[i, j] = 1;
+                            numberShips--;
+                            return;
+                        }
+                    }
+                    else if (i == sizeField - 1 && j == sizeField - 1)
+                    {
+                        if (myField[i - 1, j] == 0 && myField[i, j - 1] == 0 && myField[i - 1, j - 1] == 0)
+                        {
+                            myField[i, j] = 1;
+                            numberShips--;
+                            return;
+                        }
+                    }
+                    else if (i == sizeField - 1 && j == 0)
+                    {
+                        if (myField[i - 1, j] == 0 && myField[i, j + 1] == 0 && myField[i - 1, j + 1] == 0)
+                        {
+                            myField[i, j] = 1;
+                            numberShips--;
+                            return;
+                        }
+                    }
+                    else if (i == 0 && j == sizeField - 1)
+                    {
+                        if (myField[i + 1, j] == 0 && myField[i, j - 1] == 0 && myField[i + 1, j - 1] == 0)
+                        {
+                            myField[i, j] = 1;
+                            numberShips--;
+                            return;
+                        }
+                    }
+                    else if (i == 0)
+                    {
+                        if (myField[i, j + 1] == 0 && myField[i, j - 1] == 0 && myField[i + 1, j] == 0 &&
+                            myField[i + 1, j + 1] == 0 && myField[i + 1, j - 1] == 0)
+                        {
+                            myField[i, j] = 1;
+                            numberShips--;
+                            return;
+                        }
+                    }
+                    else if (i == sizeField - 1)
+                    {
+                        if (myField[i - 1, j] == 0 && myField[i - 1, j + 1] == 0 && myField[i, j - 1] == 0 &&
+                            myField[i, j + 1] == 0 && myField[i - 1, j - 1] == 0)
+                        {
+                            myField[i, j] = 1;
+                            numberShips--;
+                            return;
+                        }
+                    }
+                    else if (j == 0)
+                    {
+                        if (myField[i + 1, j] == 0 && myField[i - 1, j] == 0 && myField[i, j + 1] == 0 &&
+                            myField[i - 1, j + 1] == 0 && myField[i + 1, j + 1] == 0)
+                        {
+                            myField[i, j] = 1;
+                            numberShips--;
+                            return;
+                        }
+                    }
+                    else if (j == sizeField - 1)
+                    {
+                        if (myField[i - 1, j] == 0 && myField[i + 1, j] == 0 && myField[i, j - 1] == 0 &&
+                            myField[i - 1, j - 1] == 0 && myField[i + 1, j - 1] == 0)
+                        {
+                            myField[i, j] = 1;
+                            numberShips--;
+                            return;
+                        }
+                    }
+                }
+            }            
+        }//end ManuallyFill
        
         private void fillMyField()
         {
