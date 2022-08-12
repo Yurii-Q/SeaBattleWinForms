@@ -107,7 +107,13 @@ namespace SeaBattleWinForms
             ResetDisplayMyField();
 
             if (flagWin != 0)
-            {    
+            {
+                for (int i = 0; i < rang; ++i)
+                    for (int j = 0; j < rang; ++j)
+                    {
+                        buttonsOnPCField[i, j].Click -= btn_ClickPCField;                        
+                    }
+
                 if (flagWin == 1)
                    MessageBox.Show("You Win!");
                 else
