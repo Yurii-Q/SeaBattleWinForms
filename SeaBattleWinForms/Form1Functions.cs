@@ -53,7 +53,8 @@ namespace SeaBattleWinForms
                     buttonsOnPCField[i, j].Margin = new Padding(0);
                     buttonsOnPCField[i, j].Padding = new Padding(0);
                     buttonsOnPCField[i, j].FlatAppearance.BorderSize = 0;
-                    buttonsOnPCField[i, j].FlatStyle = FlatStyle.Flat;                    
+                    buttonsOnPCField[i, j].FlatStyle = FlatStyle.Flat;
+                    buttonsOnPCField[i,j].BackColor = Color.White;
                 }
 
             for (int i = 1; i <= rang; ++i)
@@ -76,12 +77,16 @@ namespace SeaBattleWinForms
                     buttonsOnPlayerField[i, j].Padding = new Padding(0);
                     buttonsOnPlayerField[i, j].FlatAppearance.BorderSize = 0;
                     buttonsOnPlayerField[i, j].FlatStyle = FlatStyle.Flat;
+                    buttonsOnPlayerField[i, j].BackColor = Color.White;
                     buttonsOnPlayerField[i, j].Click += btn_ClickPlayerField;
 
                     if (this.player.getFieldElement(i, j) == 0)
                         buttonsOnPlayerField[i, j].Text = "";
                     if (this.player.getFieldElement(i, j) == 1)
+                    {
                         buttonsOnPlayerField[i, j].Text = "O";
+                        buttonsOnPlayerField[i, j].BackColor = Color.YellowGreen;
+                    }
                     if (this.player.getFieldElement(i, j) == 2)
                         buttonsOnPlayerField[i, j].Text = "X";
                 }
@@ -91,7 +96,6 @@ namespace SeaBattleWinForms
                 {
                     this.tableLayoutPlayer.Controls.Add(buttonsOnPlayerField[i - 1, j - 1], i, j);
                 }
-
         }
 
         private void ResetDisplayPlayerField()
@@ -101,12 +105,19 @@ namespace SeaBattleWinForms
             for (int i = 0; i < rang; ++i)
                 for (int j = 0; j < rang; ++j)
                 {
+                    buttonsOnPlayerField[i, j].BackColor = Color.White;
                     if (this.player.getFieldElement(i, j) == 0)
                         buttonsOnPlayerField[i, j].Text = "";
                     if (this.player.getFieldElement(i, j) == 1)
+                    {
                         buttonsOnPlayerField[i, j].Text = "O";
+                        buttonsOnPlayerField[i, j].BackColor = Color.YellowGreen;
+                    }
                     if (this.player.getFieldElement(i, j) == 2)
+                    {
                         buttonsOnPlayerField[i, j].Text = "X";
+                        buttonsOnPlayerField[i, j].BackColor = Color.Orange;
+                    }
                 }
             this.ResumeLayout();
             //sw.Stop();
@@ -131,9 +142,12 @@ namespace SeaBattleWinForms
         {
             for (int i = 0; i < rang; ++i)
                 for (int j = 0; j < rang; ++j)
-                {                    
+                {
                     if (this.pc.getMyMoveElement(i, j) == 1)
+                    {
                         buttonsOnPlayerField[i, j].Text = "X";
+                        buttonsOnPlayerField[i, j].BackColor = Color.Orange;
+                    }
                     if (this.pc.getMyMoveElement(i, j) == 2)
                         buttonsOnPlayerField[i, j].Text = "*";
                 }

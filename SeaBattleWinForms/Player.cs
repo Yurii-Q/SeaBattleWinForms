@@ -66,6 +66,7 @@ namespace SeaBattle
                     myMoves[i, j] = 0;
                 }
             }
+            numberShips = 10;
         }//end zeroingField
 
         public void ManuallyFill(int i, int j)
